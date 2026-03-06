@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router";
 import { Home } from "./components/Home";
-import { TeorikStudent, TeorikEvaluator } from "./components/TeorikSınav";
-import { PerformansStudent, PerformansEvaluator } from "./components/PerformansSınav";
+import { TeorikAday } from "./components/TeorikAday";
+import { TeorikDegerlendirici } from "./components/TeorikDegerlendirici";
+import { PerformansAday } from "./components/PerformansAday";
+import { PerformansDegerlendirici } from "./components/PerformansDegerlendirici";
 
 export const router = createBrowserRouter([
   {
@@ -10,18 +12,18 @@ export const router = createBrowserRouter([
   },
   {
     path: "/teorik-aday",
-    Component: TeorikStudent,
+    Component: TeorikAday,
   },
   {
     path: "/teorik-degerlendirici",
-    Component: TeorikEvaluator,
+    Component: TeorikDegerlendirici,
   },
   {
     path: "/performans-aday",
-    Component: PerformansStudent,
+    Component: PerformansAday,
   },
   {
     path: "/performans-degerlendirici",
-    Component: PerformansEvaluator,
+    Component: PerformansDegerlendirici,
   },
 ]);

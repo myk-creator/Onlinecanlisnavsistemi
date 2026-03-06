@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { VideoStream, Timer } from "./shared/ExamComponents";
-import { Send, FileText, CheckCircle2, LayoutGrid, Clock, ListChecks } from "lucide-react";
+import { CheckCircle2, LayoutGrid, Clock } from "lucide-react";
 
 interface Question {
   id: number;
@@ -16,7 +16,7 @@ interface Unit {
   questions: Question[];
 }
 
-export const TeorikStudent: React.FC = () => {
+export const TeorikAday: React.FC = () => {
   const [activeUnitId, setActiveUnitId] = useState(1);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -73,7 +73,6 @@ export const TeorikStudent: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-slate-50 text-slate-900">
-      {/* Header */}
       <header className="h-14 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">T</div>
@@ -92,10 +91,8 @@ export const TeorikStudent: React.FC = () => {
         </div>
       </header>
 
-      {/* Top Navigation: Units and Question Status */}
       <div className="bg-white border-b border-slate-200 shadow-sm z-10">
         <div className="max-w-7xl mx-auto flex flex-col">
-          {/* Unit Tabs */}
           <div className="flex border-b border-slate-100">
             {units.map((unit) => (
               <button
@@ -117,7 +114,6 @@ export const TeorikStudent: React.FC = () => {
             ))}
           </div>
 
-          {/* Question Numbers Grid */}
           <div className="p-3 px-6 flex items-center gap-4 overflow-x-auto bg-slate-50/50">
             <div className="flex items-center gap-2 pr-4 border-r border-slate-200">
               <LayoutGrid className="w-4 h-4 text-slate-400" />
@@ -140,23 +136,11 @@ export const TeorikStudent: React.FC = () => {
                 </button>
               ))}
             </div>
-            
-            <div className="flex items-center gap-4 ml-auto pl-4 border-l border-slate-200">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span className="text-[10px] font-bold text-slate-500 uppercase">DOLU</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-white border border-slate-200" />
-                <span className="text-[10px] font-bold text-slate-500 uppercase">BOŞ</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
 
       <main className="flex-1 flex overflow-hidden">
-        {/* Left Side: Videos */}
         <aside className="w-80 bg-white border-r border-slate-200 p-4 flex flex-col gap-4 overflow-y-auto">
           <div className="space-y-4">
             <div>
@@ -174,7 +158,6 @@ export const TeorikStudent: React.FC = () => {
           </div>
         </aside>
 
-        {/* Center: Current Question */}
         <section className="flex-1 p-8 overflow-y-auto">
           <div className="max-w-3xl mx-auto space-y-6">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-8">
@@ -189,50 +172,29 @@ export const TeorikStudent: React.FC = () => {
                   </div>
                 </div>
                 {currentQuestion.answered && (
-                  <button 
-                    onClick={handleClearAnswer}
-                    className="text-[10px] font-black text-red-500 uppercase hover:text-red-600 transition-colors"
-                  >
+                  <button onClick={handleClearAnswer} className="text-[10px] font-black text-red-500 uppercase hover:text-red-600 transition-colors">
                     Seçimi Temizle
                   </button>
                 )}
               </div>
 
               <div className="space-y-8">
-                <h2 className="text-xl font-medium leading-relaxed text-slate-800">
-                  {currentQuestion.text}
-                </h2>
-
+                <h2 className="text-xl font-medium leading-relaxed text-slate-800">{currentQuestion.text}</h2>
                 <div className="grid grid-cols-1 gap-4">
                   {currentQuestion.options.map((option, idx) => {
                     const letter = String.fromCharCode(65 + idx);
                     const isSelected = currentQuestion.answered === letter;
-
                     return (
                       <button 
                         key={letter}
                         onClick={() => handleAnswer(letter)}
-                        className={`w-full text-left p-5 rounded-xl border transition-all flex items-center gap-5 group relative ${
-                          isSelected 
-                            ? 'bg-indigo-50 border-indigo-600 shadow-sm' 
-                            : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50'
-                        }`}
+                        className={`w-full text-left p-5 rounded-xl border transition-all flex items-center gap-5 group relative ${isSelected ? 'bg-indigo-50 border-indigo-600 shadow-sm' : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50'}`}
                       >
-                        <span className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-colors ${
-                          isSelected 
-                            ? 'bg-indigo-600 text-white' 
-                            : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
-                        }`}>
+                        <span className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-colors ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'}`}>
                           {letter}
                         </span>
-                        <span className={`font-medium ${isSelected ? 'text-indigo-900' : 'text-slate-700'}`}>
-                          {option}
-                        </span>
-                        {isSelected && (
-                          <div className="ml-auto">
-                            <CheckCircle2 className="w-5 h-5 text-indigo-600" />
-                          </div>
-                        )}
+                        <span className={`font-medium ${isSelected ? 'text-indigo-900' : 'text-slate-700'}`}>{option}</span>
+                        {isSelected && <div className="ml-auto"><CheckCircle2 className="w-5 h-5 text-indigo-600" /></div>}
                       </button>
                     );
                   })}
@@ -243,83 +205,23 @@ export const TeorikStudent: React.FC = () => {
                 <button 
                   onClick={() => setCurrentQuestionIndex(idx => Math.max(0, idx - 1))}
                   disabled={currentQuestionIndex === 0}
-                  className="px-8 py-2.5 rounded-xl text-sm font-bold border border-slate-200 disabled:opacity-30 hover:bg-slate-50 transition-all flex items-center gap-2"
+                  className="px-8 py-2.5 rounded-xl text-sm font-bold border border-slate-200 disabled:opacity-30 hover:bg-slate-50 transition-all"
                 >
                   ← Önceki Soru
                 </button>
                 <button 
                   onClick={() => {
-                    if (currentQuestionIndex < activeUnit.questions.length - 1) {
-                      setCurrentQuestionIndex(idx => idx + 1);
-                    } else {
-                      // Maybe move to next unit or finish
-                    }
+                    if (currentQuestionIndex < activeUnit.questions.length - 1) setCurrentQuestionIndex(idx => idx + 1);
                   }}
-                  className="bg-indigo-600 text-white px-10 py-2.5 rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100 flex items-center gap-2"
+                  className="bg-indigo-600 text-white px-10 py-2.5 rounded-xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-md"
                 >
                   {currentQuestionIndex === activeUnit.questions.length - 1 ? 'Üniteyi Bitir' : 'Sonraki Soru →'}
                 </button>
               </div>
             </div>
-            
-            <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              Sistem güvenliği için tüm hareketleriniz kaydedilmektedir.
-            </p>
+            <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sistem güvenliği için tüm hareketleriniz kaydedilmektedir.</p>
           </div>
         </section>
-      </main>
-    </div>
-  );
-};
-
-export const TeorikEvaluator: React.FC = () => {
-  const candidates = Array.from({ length: 6 }, (_, i) => ({
-    id: i + 1,
-    name: `Aday ${i + 1}`,
-    status: 'online',
-    time: 3600 - (i * 120)
-  }));
-
-  return (
-    <div className="flex flex-col h-screen bg-slate-50 text-slate-900">
-      <header className="h-14 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold">D</div>
-          <h1 className="font-semibold text-lg">Teorik Sınav - Değerlendirici Paneli</h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="bg-slate-100 px-3 py-1 rounded text-xs font-bold text-slate-600">6 ADAY AKTİF</div>
-          <VideoStream label="Kameram" className="w-32 h-10 min-h-0 rounded-md" />
-        </div>
-      </header>
-
-      <main className="flex-1 p-6 overflow-y-auto">
-        <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
-          {candidates.map((c) => (
-            <div key={c.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden flex flex-col shadow-sm">
-              <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="font-bold text-sm">{c.name}</span>
-                </div>
-                <Timer duration={c.time} className="text-xs text-slate-500" />
-              </div>
-              
-              <div className="p-3 grid grid-cols-2 gap-3">
-                <div className="col-span-2">
-                  <VideoStream label="Ekran Paylaşımı" icon="screen" isLarge className="h-48" />
-                </div>
-                <VideoStream label="PC Kamera" />
-                <VideoStream label="Mobil Kamera" icon="mobile" />
-              </div>
-
-              <div className="px-4 py-3 border-t border-slate-100 flex gap-2">
-                <button className="flex-1 py-1.5 text-xs font-bold border border-slate-200 rounded hover:bg-slate-50 transition-colors uppercase">Mesaj Gönder</button>
-                <button className="flex-1 py-1.5 text-xs font-bold border border-red-200 text-red-600 rounded hover:bg-red-50 transition-colors uppercase">Uyarı Ver</button>
-              </div>
-            </div>
-          ))}
-        </div>
       </main>
     </div>
   );

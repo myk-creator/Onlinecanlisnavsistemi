@@ -1,81 +1,8 @@
 import React, { useState } from "react";
 import { VideoStream, Timer } from "./shared/ExamComponents";
-import { FileText, Play, Square, Pause, Share2, Upload, CheckCircle2, X, Monitor, Globe, Calculator, Users, Settings, ClipboardList } from "lucide-react";
+import { FileText, Play, Square, Share2, Monitor, Globe, Calculator, Users, Settings, ClipboardList } from "lucide-react";
 
-export const PerformansStudent: React.FC = () => {
-  const [activePdf, setActivePdf] = useState<string | null>("Senaryo 1: Ağ Yapılandırması");
-
-  return (
-    <div className="flex flex-col h-screen bg-slate-50 text-slate-900">
-      <header className="h-14 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-orange-600 flex items-center justify-center text-white font-bold">P</div>
-          <h1 className="font-semibold text-lg">Performans Sınavı - Aday Paneli</h1>
-        </div>
-        <div className="flex items-center gap-6">
-          <div className="flex flex-col items-end">
-            <span className="text-[10px] uppercase font-bold text-slate-500">Kalan Süre</span>
-            <Timer duration={1800} className="text-orange-600" />
-          </div>
-        </div>
-      </header>
-
-      <main className="flex-1 flex overflow-hidden">
-        {/* Left Side: Evaluator & Cams */}
-        <aside className="w-80 bg-white border-r border-slate-200 p-4 flex flex-col gap-4 overflow-y-auto">
-          <div className="space-y-4">
-            <div>
-              <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block">Değerlendirici</label>
-              <VideoStream label="Değerlendirici" className="h-40" />
-            </div>
-            <div className="pt-4 border-t border-slate-100">
-              <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block">Benim Kameralarım</label>
-              <div className="grid grid-cols-2 gap-2">
-                <VideoStream label="PC" className="h-24" />
-                <VideoStream label="Mobil" icon="mobile" className="h-24" />
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        {/* Center: PDF Content */}
-        <section className="flex-1 flex flex-col p-6 bg-slate-100/50">
-          {activePdf ? (
-            <div className="flex-1 bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden flex flex-col">
-              <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-white">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-indigo-500" />
-                  <span className="font-bold text-sm">{activePdf}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button className="text-xs font-bold text-slate-500 uppercase px-2 py-1 rounded hover:bg-slate-100">Sayfa 1 / 4</button>
-                </div>
-              </div>
-              <div className="flex-1 overflow-y-auto p-12 bg-slate-200/50">
-                <div className="max-w-3xl mx-auto bg-white min-h-full shadow-lg p-12 space-y-6">
-                  <h1 className="text-2xl font-bold border-b-2 border-slate-100 pb-4">Senaryo Detayları</h1>
-                  <p className="text-slate-600 leading-relaxed">Bu bölümde sizden istenen performans kriterlerini yerine getirmeniz beklenmektedir...</p>
-                  <div className="h-40 bg-slate-50 rounded border-2 border-dashed border-slate-200" />
-                  <div className="space-y-4">
-                    <div className="h-4 w-full bg-slate-100 rounded" />
-                    <div className="h-4 w-3/4 bg-slate-100 rounded" />
-                    <div className="h-4 w-5/6 bg-slate-100 rounded" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="flex-1 flex items-center justify-center text-slate-400 font-medium">
-              Henüz bir doküman paylaşılmadı.
-            </div>
-          )}
-        </section>
-      </main>
-    </div>
-  );
-};
-
-export const PerformansEvaluator: React.FC = () => {
+export const PerformansDegerlendirici: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"adaylar" | "araçlar" | "senaryo">("senaryo");
   const [activeCandidate, setActiveCandidate] = useState({ id: 4501, name: "Ahmet Yılmaz" });
   
@@ -137,18 +64,15 @@ export const PerformansEvaluator: React.FC = () => {
       </header>
 
       <main className="flex-1 flex overflow-hidden">
-        {/* Left Side: Candidate Streams */}
         <aside className="w-72 bg-white border-r border-slate-200 p-4 flex flex-col gap-4 overflow-y-auto">
           <label className="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-2">ADAY KAMERALARI</label>
           <VideoStream label="PC Kamera" className="h-32" />
           <VideoStream label="Mobil Kamera" icon="mobile" className="h-32" />
-          
           <div className="mt-auto pt-4 border-t border-slate-100">
             <VideoStream label="Kameram (Değerlendirici)" className="h-28 opacity-80" />
           </div>
         </aside>
 
-        {/* Center: Main Screen Share */}
         <section className="flex-1 bg-slate-900 flex flex-col overflow-hidden relative">
           <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
             <div className="bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full flex items-center gap-2">
@@ -175,9 +99,7 @@ export const PerformansEvaluator: React.FC = () => {
           </div>
         </section>
 
-        {/* Right Side: Tabs & Controls */}
         <aside className="w-80 bg-white border-l border-slate-200 flex flex-col">
-          {/* Tab Navigation */}
           <div className="flex border-b border-slate-200 bg-slate-50">
             <button 
               onClick={() => setActiveTab("adaylar")}
